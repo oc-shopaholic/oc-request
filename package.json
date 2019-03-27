@@ -1,0 +1,30 @@
+{
+  "name": "oc-request",
+  "version": "0.1.0",
+  "description": "OC-request is a vanilla-js replacement for the standard javascript OctoberCMS library",
+  "main": "src/oc-request-core.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ambrazhei/oc-request.git"
+  },
+  "keywords": [
+    "OctoberCMS",
+    "axios",
+    "shopaholic",
+    "vanilla",
+    "october",
+    "axios"
+  ],
+  "author": "Uladzimir Ambrazhei",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ambrazhei/oc-request/issues"
+  },
+  "homepage": "https://github.com/ambrazhei/oc-request#readme",
+  "dependencies": {
+    "axios": "^0.18.0"
+  }
+}
