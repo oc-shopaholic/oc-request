@@ -53,6 +53,7 @@ export default class OCparseOptions {
       success: options.success,
       error: options.error,
       update: options.update,
+      loading: options.loading,
     };
 
     return obOptions;

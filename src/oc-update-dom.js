@@ -14,11 +14,11 @@ export default class OCUpdateDOM {
 
       if (typeof selector !== 'string') return;
 
-      this.selectSelectorHandler(partial, selector);
+      this.selectHandler(partial, selector);
     });
   }
 
-  selectSelectorHandler(partial, selector) {
+  selectHandler(partial, selector) {
     switch (selector.charAt(0)) {
       case '@': this.smartInsert('beforeEnd', partial, selector);
         break;
@@ -45,5 +45,20 @@ export default class OCUpdateDOM {
 
       el.insertAdjacentHTML(where, html);
     });
+  }
+
+  static show(preLoaderSelector) {
+    const preLoader = document.querySelector(preLoaderSelector);
+
+    if (!preLoader) return;
+
+    preLoader.style.display = 'block';
+  }
+
+  static hide(preLoaderSelector) {
+    const preLoader = document.querySelector(preLoaderSelector);
+
+    if (!preLoader) return;
+    preLoader.style.display = 'none';
   }
 }
