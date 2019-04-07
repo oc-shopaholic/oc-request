@@ -9,32 +9,50 @@ import OCUpdateDOM from './oc-update-dom';
 
 export default class OCRequest {
   constructor() {
-    this.responseStore = undefined;
+    this.obResponseStore = undefined;
+    this.obOptions = {};
   }
 
-  send(handler, options) {
+  sendData(handler, options) {
+    this.requestPreparing(handler, options);
+
+    axios(this.obOptions)
+      .then((response) => {
+        this.handleResponse(response, options);
+      })
+      .catch((error) => {
+        this.constructor.error(error, this.obOptions);
+      })
+      .then(() => {
+        this.constructor.complete(this.obResponseStore, this.obOptions);
+      });
+  }
+
+  requestPreparing(handler, options) {
     const parseOptionsInstance = new OCparseOptions(handler, options);
 
     this.obOptions = parseOptionsInstance.obOptions;
 
     document.dispatchEvent(OCEvent.ocBeforeRequest(this.obOptions));
 
-    axios(this.obOptions)
-      .then((response) => {
-        this.responseStore = response;
+    if (options.loading) {
+      OCUpdateDOM.show(options.loading);
+    }
+  }
 
-        if (this.obOptions.update !== undefined) {
-          document.dispatchEvent(OCEvent.ocBeforeUpdate(response));
-          this.constructor.initUpdating(this.obOptions.update, response);
-        }
-        this.constructor.success(response, this.obOptions);
-      })
-      .catch((error) => {
-        this.constructor.error(error, this.obOptions);
-      })
-      .then(() => {
-        this.constructor.complete(this.responseStore, this.obOptions);
-      });
+  handleResponse(response, options) {
+    this.obResponseStore = response;
+
+    if (this.obOptions.loading) {
+      OCUpdateDOM.hide(options.loading);
+    }
+
+    if (this.obOptions.update !== undefined) {
+      document.dispatchEvent(OCEvent.ocBeforeUpdate(response));
+      this.constructor.initUpdating(this.obOptions.update, response);
+      document.dispatchEvent(OCEvent.ocAfterUpdate());
+    }
+    this.constructor.success(response, this.obOptions);
   }
 
   static initUpdating(data, response) {
