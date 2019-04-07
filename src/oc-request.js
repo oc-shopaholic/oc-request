@@ -16,6 +16,8 @@ export default class OCRequest {
   sendData(handler, options) {
     this.requestPreparing(handler, options);
 
+    if (!this.obOptions.confirm) return;
+
     axios(this.obOptions)
       .then((response) => {
         this.handleResponse(response, options);

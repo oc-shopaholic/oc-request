@@ -41,9 +41,18 @@ export default class OCparseOptions {
     return sPartial;
   }
 
+  static getConfirm(options) {
+    if (options.confirm) {
+      return options.confirm();
+    }
+
+    return true;
+  }
+
   setOptions(handler, options) {
     const obOptions = {
       url: window.location.href,
+      confirm: this.constructor.getConfirm(options),
       method: 'POST',
       withCredentials: true,
       headers: this.setRequestHeaders(handler, options),
