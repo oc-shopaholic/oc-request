@@ -42,9 +42,8 @@ export default class OCUpdateDOM {
   smartInsert(where, partial, selector) {
     [...document.querySelectorAll(selector.substring(1))].forEach((el) => {
       const html = this.response.data[partial];
-      const node = el;
 
-      node.insertAdjacentHTML(where, html);
+      el.insertAdjacentHTML(where, html);
     });
   }
 }
