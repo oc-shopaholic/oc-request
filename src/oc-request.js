@@ -11,6 +11,8 @@ export default class OCRequest {
   constructor() {
     this.obResponseStore = undefined;
     this.obOptions = {};
+
+    this.redirectKey = 'X_OCTOBER_REDIRECT';
   }
 
   sendData(handler, options) {
@@ -54,7 +56,20 @@ export default class OCRequest {
       this.constructor.initUpdating(this.obOptions.update, response);
       document.dispatchEvent(OCEvent.ocAfterUpdate());
     }
+
+    if (this.obOptions.redirect) {
+      this.handleRedirect(response);
+    }
+
     this.constructor.success(response, this.obOptions);
+  }
+
+  handleRedirect(response) {
+    const url = response.data[this.redirectKey].trim();
+
+    if (url !== 'undefined') {
+      window.location.href = url;
+    }
   }
 
   static initUpdating(data, response) {

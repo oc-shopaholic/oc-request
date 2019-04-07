@@ -53,6 +53,7 @@ export default class OCparseOptions {
     const obOptions = {
       url: window.location.href,
       confirm: this.constructor.getConfirm(options),
+      redirect: options.redirect || true,
       method: 'POST',
       withCredentials: true,
       headers: this.setRequestHeaders(handler, options),
