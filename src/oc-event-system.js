@@ -2,6 +2,7 @@ export default new class OCEventSystem {
   constructor() {
     this.ocBeforeRequestEvent = 'ocBeforeAxiosRequest';
     this.ocBeforeUpdateEvent = 'ocBeforeUpdateEvent';
+    this.ocAfterUpdateEvent = 'ocAfterUpdateEvent';
   }
 
   ocBeforeRequest(detail) {
@@ -22,5 +23,14 @@ export default new class OCEventSystem {
     });
 
     return ocBeforeRequest;
+  }
+
+  ocAfterUpdate() {
+    const ocAfterUpdate = new CustomEvent(this.ocAfterUpdateEvent, {
+      bubbles: true,
+      cancelable: false,
+    });
+
+    return ocAfterUpdate;
   }
 }();
