@@ -18,8 +18,6 @@ export default class OCRequest {
   sendData(handler, options) {
     this.requestPreparing(handler, options);
 
-    if (!this.obOptions.confirm) return;
-
     axios(this.obOptions)
       .then((response) => {
         this.handleResponse(response, options);
@@ -36,8 +34,6 @@ export default class OCRequest {
     const parseOptionsInstance = new OCparseOptions(handler, options);
 
     this.obOptions = parseOptionsInstance.obOptions;
-
-    document.dispatchEvent(OCEvent.ocBeforeRequest(this.obOptions));
 
     if (options.loading) {
       OCUpdateDOM.show(options.loading);
