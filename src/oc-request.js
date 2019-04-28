@@ -18,15 +18,11 @@ export default new class OCRequest {
     const promisedXHR = this.constructor.promisificationRequest;
 
     promisedXHR(xhr, this.obOptions.data)
-      .then(() => {
-        handleResponse(xhr, this.obOptions, options);
-      })
-      .catch((error) => {
-        errorFunc(error, this.obOptions);
-      })
-      .then(() => {
-        completeFunc(this.obResponseStore, this.obOptions);
-      });
+      .then(
+        response => handleResponse(response, this.obOptions, options),
+        error => errorFunc(error, this.obOptions),
+      )
+      .then(complete => completeFunc(this.obResponseStore, this.obOptions, complete));
   }
 
   static promisificationRequest(obRequest, data) {

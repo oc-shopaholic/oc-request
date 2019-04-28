@@ -37,8 +37,9 @@ const handleRedirect = (response) => {
   }
 };
 
-const handleResponse = (response, options, globalOptions) => {
+export const handleResponse = (response, options, globalOptions) => {
   obResponseStore = response;
+  console.log(response);
 
   if (globalOptions.loading) {
     OCUpdateDOM.hide(options.loading);
@@ -56,6 +57,3 @@ const handleResponse = (response, options, globalOptions) => {
 
   success(response, globalOptions);
 };
-
-
-export default handleResponse;
