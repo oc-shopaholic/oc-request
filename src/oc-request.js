@@ -2,93 +2,84 @@
  * @author  Uladzimir Ambrazhey, <uladzimir.ambrazhey@gmail.com>
  */
 
-import axios from 'axios';
-import OCparseOptions from './oc-parse-options';
-import OCEvent from './oc-event-system';
+import OCParseOptions from './oc-parse-options';
+import OCMessage from './oc-request-message';
 import OCUpdateDOM from './oc-update-dom';
+import { handleResponse, errorFunc, completeFunc } from './oc-handle-response';
 
-export default class OCRequest {
+export default new class OCRequest {
   constructor() {
     this.obResponseStore = undefined;
     this.obOptions = {};
-
-    this.redirectKey = 'X_OCTOBER_REDIRECT';
   }
 
   sendData(handler, options) {
-    this.requestPreparing(handler, options);
+    const xhr = this.requestPreparing(handler, options);
+    const promisedXHR = this.constructor.promisificationRequest;
 
-    axios(this.obOptions)
-      .then((response) => {
-        this.handleResponse(response, options);
+    promisedXHR(xhr, this.obOptions.data)
+      .then(() => {
+        handleResponse(xhr, this.obOptions, options);
       })
       .catch((error) => {
-        this.constructor.error(error, this.obOptions);
+        errorFunc(error, this.obOptions);
       })
       .then(() => {
-        this.constructor.complete(this.obResponseStore, this.obOptions);
+        completeFunc(this.obResponseStore, this.obOptions);
       });
   }
 
+  static promisificationRequest(obRequest, data) {
+    return new Promise((resolve, reject, complete) => {
+      const xhr = obRequest;
+      xhr.onload = () => {
+        if (xhr.status === 200) {
+          resolve(xhr);
+        } else {
+          const error = new Error(xhr.statusText);
+          error.code = xhr.status;
+          reject(error);
+        }
+      };
+
+      xhr.onerror = () => {
+        reject(new Error(OCMessage.requestError));
+      };
+
+      xhr.loadend = () => {
+        complete(xhr);
+      };
+      xhr.send(JSON.stringify(data));
+    });
+  }
+
+  static xhrConstructor(method, url, obHeaders) {
+    const xhr = new XMLHttpRequest();
+
+    xhr.open(method, url, true);
+
+    Object.keys(obHeaders).forEach(i => xhr.setRequestHeader(i, obHeaders[i]));
+
+    return xhr;
+  }
+
   requestPreparing(handler, options) {
-    const parseOptionsInstance = new OCparseOptions(handler, options);
+    const parseOptionsInstance = new OCParseOptions(handler, options);
 
     this.obOptions = parseOptionsInstance.obOptions;
+
+    const {
+      method, url, headers, withCredentials,
+    } = this.obOptions;
+
+    const xhr = this.constructor.xhrConstructor(method, url, headers);
+    xhr.withCredentials = withCredentials;
 
     if (options.loading) {
       OCUpdateDOM.show(options.loading);
     }
+
+    return xhr;
   }
+}();
 
-  handleResponse(response, options) {
-    this.obResponseStore = response;
-
-    if (this.obOptions.loading) {
-      OCUpdateDOM.hide(options.loading);
-    }
-
-    if (this.obOptions.update !== undefined) {
-      document.dispatchEvent(OCEvent.ocBeforeUpdate(response));
-      this.constructor.initUpdating(this.obOptions.update, response);
-      document.dispatchEvent(OCEvent.ocAfterUpdate());
-    }
-
-    if (this.obOptions.redirect) {
-      this.handleRedirect(response);
-    }
-
-    this.constructor.success(response, this.obOptions);
-  }
-
-  handleRedirect(response) {
-    const url = response.data[this.redirectKey].trim();
-
-    if (url !== 'undefined') {
-      window.location.href = url;
-    }
-  }
-
-  static initUpdating(data, response) {
-    const updateDOM = new OCUpdateDOM(data, response);
-
-    updateDOM.update();
-  }
-
-  static error(error = {}, options = {}) {
-    if (options.error) {
-      options.error(error);
-    }
-  }
-
-  static success(response = {}, options = {}) {
-    if (options.success) {
-      options.success(response);
-    }
-  }
-
-  static complete(response = {}, options = {}) {
-    if (options.complete !== 'undefined') {
-      options.complete(response);
-    }
-  }
-}
