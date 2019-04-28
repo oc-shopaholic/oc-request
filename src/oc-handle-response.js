@@ -38,22 +38,21 @@ const handleRedirect = (response) => {
 };
 
 export const handleResponse = (response, options, globalOptions) => {
-  obResponseStore = response;
-  console.log(response);
+  obResponseStore = JSON.parse(response.responseText);
 
   if (globalOptions.loading) {
     OCUpdateDOM.hide(options.loading);
   }
 
   if (globalOptions.update !== undefined) {
-    document.dispatchEvent(OCEvent.ocBeforeUpdate(response));
-    initUpdating(globalOptions.update, response);
+    document.dispatchEvent(OCEvent.ocBeforeUpdate(obResponseStore));
+    initUpdating(globalOptions.update, obResponseStore);
     document.dispatchEvent(OCEvent.ocAfterUpdate());
   }
 
   if (globalOptions.redirect) {
-    handleRedirect(response);
+    handleRedirect(obResponseStore);
   }
 
-  success(response, globalOptions);
+  success(obResponseStore, globalOptions);
 };
