@@ -20,6 +20,7 @@ export default class OCparseOptions {
   setRequestHeaders(handler, options) {
     const headers = {
       'X-Requested-With': 'XMLHttpRequest',
+      'Content-Type': 'application/json',
       'X-OCTOBER-REQUEST-HANDLER': handler,
       'X-OCTOBER-REQUEST-PARTIALS': this.extractPartials(options.update),
     };
