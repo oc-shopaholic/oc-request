@@ -22,8 +22,5 @@
   "bugs": {
     "url": "https://github.com/ambrazhei/oc-request/issues"
   },
-  "homepage": "https://github.com/ambrazhei/oc-request#readme",
-  "dependencies": {
-    "axios": "^0.18.0"
-  }
+  "homepage": "https://github.com/ambrazhei/oc-request#readme"
 }
