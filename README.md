@@ -5,6 +5,6 @@ OC-request is a vanilla-js replacement for the standard javascript OctoberCMS li
 
 ### Version history
 
-***0.1.3*** - Added basic functionality for sending data and updating DOM
-***0.2.0*** - Migrate from axios to native XMLHttpRequest
+* ***0.1.3*** - Added basic functionality for sending data and updating DOM
+* ***0.2.0*** - Migrate from axios to native XMLHttpRequest
 
