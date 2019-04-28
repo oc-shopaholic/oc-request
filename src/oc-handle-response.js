@@ -30,10 +30,10 @@ export const completeFunc = (response = {}, options = {}) => {
 
 
 const handleRedirect = (response) => {
-  const url = response.data[redirectKey].trim();
+  const url = response[redirectKey];
 
   if (url !== 'undefined') {
-    window.location.href = url;
+    window.location.href = url.trim();
   }
 };
 
@@ -43,15 +43,15 @@ export const handleResponse = (response, options, globalOptions) => {
   if (globalOptions.loading) {
     OCUpdateDOM.hide(options.loading);
   }
+  if (globalOptions.redirect && obResponseStore[redirectKey]) {
+    handleRedirect(obResponseStore);
+    return;
+  }
 
   if (globalOptions.update !== undefined) {
     document.dispatchEvent(OCEvent.ocBeforeUpdate(obResponseStore));
     initUpdating(globalOptions.update, obResponseStore);
     document.dispatchEvent(OCEvent.ocAfterUpdate());
-  }
-
-  if (globalOptions.redirect) {
-    handleRedirect(obResponseStore);
   }
 
   success(obResponseStore, globalOptions);

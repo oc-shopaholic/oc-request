@@ -18,7 +18,7 @@ export default new class OCRequest {
     const promisedXHR = this.constructor.promisificationRequest;
     promisedXHR(xhr, this.obOptions.data)
       .then(
-        response => handleResponse(response, this.obOptions, options),
+        response => handleResponse(response, options, this.obOptions),
         error => errorFunc(error, this.obOptions),
       )
       .then(complete => completeFunc(this.obResponseStore, this.obOptions, complete));
