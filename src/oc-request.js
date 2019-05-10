@@ -16,12 +16,33 @@ export default new class OCRequest {
   sendData(handler, options) {
     const xhr = this.requestPreparing(handler, options);
     const promisedXHR = this.constructor.promisificationRequest;
+    const data = this.checkDataType(options);
+
     promisedXHR(xhr, this.obOptions.data)
       .then(
         response => handleResponse(response, options, this.obOptions),
         error => errorFunc(error, this.obOptions),
       )
       .then(complete => completeFunc(this.obResponseStore, this.obOptions, complete));
+  }
+
+  checkDataType(options) {
+    const { files } = options;
+    const { data } = this.obOptions;
+
+    const obData = files !== true ? data : this.constructor.makeFormDataObj(data);
+
+    return obData;
+  }
+
+  /* TODO: Add content-type header for formData */
+
+  static makeFormDataObj(data) {
+    const formData = new FormData();
+
+    Object.keys(data).forEach(i => formData.append(i, data[i]));
+
+    return formData;
   }
 
   static promisificationRequest(obRequest, data) {
