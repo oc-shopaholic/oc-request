@@ -56,6 +56,7 @@ export default class OCparseOptions {
       error: options.error,
       update: options.update,
       loading: options.loading,
+      files: options.files,
     };
 
     return obOptions;
