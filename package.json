@@ -1,6 +1,6 @@
 {
   "name": "oc-request",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "UNDER DEVELOPMENT!!! OC-request is a vanilla-js replacement for the standard javascript OctoberCMS library",
   "main": "src/oc-request.js",
   "scripts": {
