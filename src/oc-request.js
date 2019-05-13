@@ -18,12 +18,60 @@ export default new class OCRequest {
     const promisedXHR = this.constructor.promisificationRequest;
     const data = this.checkDataType(options);
 
-    promisedXHR(xhr, this.obOptions.data)
+    promisedXHR(xhr, data)
       .then(
         response => handleResponse(response, options, this.obOptions),
         error => errorFunc(error, this.obOptions),
       )
       .then(complete => completeFunc(this.obResponseStore, this.obOptions, complete));
+  }
+
+  sendForm(form, handler, options) {
+    const { files } = options;
+    const fileInput = form.querySelector('[type="file"]');
+    const hasFiles = files === true || fileInput;
+
+    const formData = !hasFiles ? this.formSerialize(form) : new FormData(form);
+
+    const xhr = this.requestPreparing(handler, options);
+    const promisedXHR = this.constructor.promisificationRequest;
+
+    promisedXHR(xhr, formData, true)
+      .then(
+        response => handleResponse(response, options, this.obOptions),
+        error => errorFunc(error, this.obOptions),
+      )
+      .then(complete => completeFunc(this.obResponseStore, this.obOptions, complete));
+  }
+
+  formSerialize(form) {
+    const arr = [];
+    const { elements } = form;
+
+    for (let i = 0; i < elements.length; i += 1) {
+      const input = elements[i];
+      const {
+        name, type, checked, value,
+      } = input;
+
+      const arrUnSerializedElmsType = ['file', 'reset', 'submit', 'button'];
+
+      if (name && type.indexOf(arrUnSerializedElmsType) === -1) {
+        if (type === 'select-multiple') {
+          const selected = [...input.options].filter(k => k.selected);
+
+          selected.forEach(j => this.constructor.addSerializedItems(arr, name, selected[j]));
+        } else if ((type !== 'checkbox' && type !== 'radio') || checked) {
+          this.constructor.addSerializedItems(arr, name, value);
+        }
+      }
+    }
+
+    return arr.join('&');
+  }
+
+  static addSerializedItems(arrSerialize, name, value) {
+    return arrSerialize.push(`${(name)}=${(value)}`);
   }
 
   checkDataType(options) {
@@ -45,10 +93,10 @@ export default new class OCRequest {
     return formData;
   }
 
-  static promisificationRequest(obRequest, data) {
+  static promisificationRequest(obRequest, data, isString = false) {
     return new Promise((resolve, reject, complete) => {
       const xhr = obRequest;
-      xhr.onload = () => {
+      xhr.addEventListener('load', () => {
         if (xhr.status === 200) {
           resolve(xhr);
         } else {
@@ -56,16 +104,18 @@ export default new class OCRequest {
           error.code = xhr.status;
           reject(error);
         }
-      };
+      });
 
-      xhr.onerror = () => {
+      xhr.addEventListener('error', () => {
         reject(new Error(OCMessage.requestError));
-      };
+      });
 
       xhr.loadend = () => {
         complete(xhr);
       };
-      xhr.send(JSON.stringify(data));
+
+      const dataForSend = !isString ? JSON.stringify(data) : data;
+      xhr.send(dataForSend);
     });
   }
 
@@ -98,4 +148,3 @@ export default new class OCRequest {
     return xhr;
   }
 }();
-
