@@ -20,11 +20,14 @@ export default class OCparseOptions {
   setRequestHeaders(handler, options) {
     const headers = {
       'X-Requested-With': 'XMLHttpRequest',
-      // 'Content-Type': 'application/json',
-      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      'Content-Type': 'application/json',
       'X-OCTOBER-REQUEST-HANDLER': handler,
       'X-OCTOBER-REQUEST-PARTIALS': this.extractPartials(options.update),
     };
+
+    if (options.files === true) {
+      headers['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+    }
 
     if (options.useFlash) {
       headers['X-OCTOBER-REQUEST-FLASH'] = 1;
