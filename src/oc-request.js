@@ -83,8 +83,6 @@ export default new class OCRequest {
     return obData;
   }
 
-  /* TODO: Add content-type header for formData */
-
   static makeFormDataObj(data) {
     const formData = new FormData();
 
