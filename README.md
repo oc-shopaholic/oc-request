@@ -2,16 +2,18 @@
 # OC-Request
 
 **OC-request** is vanilla-js based replacement   for standard OctoberCMS api.
+No dependencies. Based on native XMLHttpRequest.
 
 ## Contents
 
-- [OC-Request](#oc-request)
   - [Contents](#contents)
   - [Introduction](#introduction)
   - [Installation](#installation)
     - [NPM](#npm)
-    - [Usage exmaple:](#usage-exmaple)
+    - [Usage exmaple](#usage-exmaple)
   - [Methods](#methods)
+    - [Events](#events)
+  - [Tips for easy migration](#tips-for-easy-migration)
   - [Version history](#version-history)
 
 ## Introduction
@@ -58,7 +60,7 @@ request.sendForm(form, 'MakeReview::onCreate', {
    success: (res) => {
       completeHandler(res);
    },
-});	
+});
 ```
 ## Methods
 
@@ -68,20 +70,34 @@ There are two main methods for **request** object:
 
 The set of options is standard for both and very similar to standard OctoberCMS api
 
-|   Options	|  Default 	| Description  
+|   Options	|  Default 	| Description
 |---	|---	|---	|
 |data|null|an optional object specifying data to be sent to the server along with the form data: {var: 'value'}.
 |update|null|an object, specifies a list partials and page elements (as CSS selectors) to update: {'partial': '#select'}. If the selector string is prepended with the @ symbol, the content received from the server will be appended to the element at begin or if string contains '^' symbol  - at the end, instead of replacing the existing content.
 |flash|false|when true, instructs the server to clear and send any flash messages with the response.
 |files|false|when true, the request will accept file uploads, this requires FormData interface support by the browser.
-|loading|null|an optional string or object to be displayed when a request runs. The string should be a CSS selector for an element, the object should support the show() and hide() functions to manage the visibility. 
+|loading|null|an optional string or object to be displayed when a request runs. The string should be a CSS selector for an element, the object should support the show() and hide() functions to manage the visibility.
 |redirect|true|string specifying an URL to redirect the browser to after the successful request.
 |success|null|Unlike the standard api, this is the primary method that runs when the query succeeds and runs **AFTER** the update () function. As a parameter, it takes **ONE** parameter - an object with a response from the server. Events are also triggered to indicate the start and end of function processing. You can read about the events below
 |error|null|the callback function is executed in case of an error. Accepts error text as a parameter
 |complete|null|Executed **AFTER** success or error methods
 
+### Events
+All events will be trigger on **document node**;
+|   Name	|  Description
+|---	|---	|
+|ocBeforeUpdateEvent| The event fires before the update() is executed|
+|ocAfterUpdateEvent|The event fires after the update() is executed and before success() is executed|
+|ocBeforeSuccessEvent|The event fires before the success() is executed|
+|ocAfterSuccessEvent|The event fires after the success() is executed|
+|ocBeforeCompleteEvent|The event fires before the complete() is executed|
+|ocAfterCompleteEvent|The event fires after the complete() is executed|
+|ocBeforeRedirectEvent|The event fires before redirect|
 
-
+## Tips for easy migration
+1. For **event delegation** there is very [useful library from github developers](https://github.com/dgraham/delegated-events).
+2. You may to use [axios](https://github.com/axios/axios) or [fetch](https://developer.mozilla.org/ru/docs/Web/API/Fetch_API) for request to custom request to server.
+3. This package is designed for the latest browsers. For better compatibility don't forget to add it for Babel processing.
 
 ## Version history
 
