@@ -1,4 +1,4 @@
-<img width="100" height="100" src="logo.jpg" alt="aweCSSome logo" align="right">
+<img width="130" height="60" src="logo.png" alt="logo" align="right">
 # OC-Request
 
 **OC-request** is vanilla-js based replacement   for standard OctoberCMS api.
