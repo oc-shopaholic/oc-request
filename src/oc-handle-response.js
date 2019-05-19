@@ -17,20 +17,29 @@ export const errorFunc = (error = {}, options = {}) => {
 };
 
 const success = (response = {}, options = {}) => {
+  document.dispatchEvent(OCEvent.OCBeforeSuccessEvent(response));
+
   if (options.success) {
     options.success(response);
   }
+
+  document.dispatchEvent(OCEvent.OCAfterSuccessEvent(response));
 };
 
 export const completeFunc = (response = {}, options = {}) => {
+  document.dispatchEvent(OCEvent.OCBeforeCompleteEvent(response));
+
   if (options.complete === undefined) return;
 
   options.complete(response);
+
+  document.dispatchEvent(OCEvent.OCAfterCompleteEvent(response));
 };
 
 
 const handleRedirect = (response) => {
   const url = response[redirectKey];
+  document.dispatchEvent(OCEvent.OCBeforeRedirectEvent(response));
 
   if (url !== 'undefined') {
     window.location.href = url.trim();

@@ -33,7 +33,7 @@ export default new class OCRequest {
 
     const formData = !hasFiles ? this.formSerialize(form) : new FormData(form);
 
-    const xhr = this.requestPreparing(handler, options);
+    const xhr = this.requestPreparing(handler, options, true);
     const promisedXHR = this.constructor.promisificationRequest;
 
     promisedXHR(xhr, formData, true)
@@ -83,8 +83,6 @@ export default new class OCRequest {
     return obData;
   }
 
-  /* TODO: Add content-type header for formData */
-
   static makeFormDataObj(data) {
     const formData = new FormData();
 
@@ -129,7 +127,10 @@ export default new class OCRequest {
     return xhr;
   }
 
-  requestPreparing(handler, options) {
+  requestPreparing(handler, options, isFormData = false) {
+    if (isFormData) {
+      options.files = true; // eslint-disable-line no-param-reassign
+    }
     const parseOptionsInstance = new OCParseOptions(handler, options);
 
     this.obOptions = parseOptionsInstance.obOptions;
