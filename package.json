@@ -4,7 +4,8 @@
   "description": "UNDER DEVELOPMENT!!! OC-request is a vanilla-js replacement for the standard javascript OctoberCMS library",
   "main": "src/oc-request.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "node -e \"console.log('\\u001b[35m\\u001b[1mLove Swiper? Support Vladimir\\'s work by donating or pledging on patreon:\\u001b[22m\\u001b[39m\\n > \\u001b[32mhttps://patreon.com/vladimirkharlampidi\\u001b[0m\\n')\""
   },
   "repository": {
     "type": "git",
@@ -22,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/ambrazhei/oc-request/issues"
   },
-  "homepage": "https://github.com/ambrazhei/oc-request#readme"
+  "homepage": "https://github.com/ambrazhei/oc-request#readme",
+  "dependencies": {
+    "swiper": "^4.5.0"
+  }
 }
