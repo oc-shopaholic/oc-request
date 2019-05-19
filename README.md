@@ -1,11 +1,11 @@
-<img width="130" height="60" src="logo.png" alt="logo" align="left">
+<img width="130" height="60" src="logo.png" alt="logo" align="left">  
+
 
 **OC-request** is vanilla-js based replacement   for standard OctoberCMS api.
 No dependencies. Based on native XMLHttpRequest.
 
 ## Contents
 
-  - [Contents](#contents)
   - [Introduction](#introduction)
   - [Installation](#installation)
     - [NPM](#npm)
