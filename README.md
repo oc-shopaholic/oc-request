@@ -83,6 +83,7 @@ The set of options is standard for both and very similar to standard OctoberCMS 
 
 ### Events
 All events will be trigger on **document node**;
+
 |   Name	|  Description
 |---	|---	|
 |ocBeforeUpdateEvent| The event fires before the update() is executed
