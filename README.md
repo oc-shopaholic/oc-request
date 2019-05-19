@@ -1,5 +1,6 @@
 <img width="130" height="60" src="logo.png" alt="logo" align="right">
-# OC-Request
+
+## OC-Request
 
 **OC-request** is vanilla-js based replacement   for standard OctoberCMS api.
 No dependencies. Based on native XMLHttpRequest.
@@ -86,13 +87,13 @@ The set of options is standard for both and very similar to standard OctoberCMS 
 All events will be trigger on **document node**;
 |   Name	|  Description
 |---	|---	|
-|ocBeforeUpdateEvent| The event fires before the update() is executed|
-|ocAfterUpdateEvent|The event fires after the update() is executed and before success() is executed|
-|ocBeforeSuccessEvent|The event fires before the success() is executed|
-|ocAfterSuccessEvent|The event fires after the success() is executed|
-|ocBeforeCompleteEvent|The event fires before the complete() is executed|
-|ocAfterCompleteEvent|The event fires after the complete() is executed|
-|ocBeforeRedirectEvent|The event fires before redirect|
+|ocBeforeUpdateEvent| The event fires before the update() is executed
+|ocAfterUpdateEvent|The event fires after the update() is executed and before success() is executed
+|ocBeforeSuccessEvent|The event fires before the success() is executed
+|ocAfterSuccessEvent|The event fires after the success() is executed
+|ocBeforeCompleteEvent|The event fires before the complete() is executed
+|ocAfterCompleteEvent|The event fires after the complete() is executed
+|ocBeforeRedirectEvent|The event fires before redirect
 
 ## Tips for easy migration
 1. For **event delegation** there is very [useful library from github developers](https://github.com/dgraham/delegated-events).
