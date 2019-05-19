@@ -1,10 +1,11 @@
 {
   "name": "oc-request",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "UNDER DEVELOPMENT!!! OC-request is a vanilla-js replacement for the standard javascript OctoberCMS library",
   "main": "src/oc-request.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "node -e \"console.log('\\u001b[35m\\u001b[1mLove oc-request? Support my work and set STAR on my github:\\u001b[22m\\u001b[39m\\n > \\u001b[32mhttps://github.com/ambrazhei/oc-request\\u001b[0m\\n')\""
   },
   "repository": {
     "type": "git",
