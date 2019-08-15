@@ -1,6 +1,6 @@
 {
   "name": "@oc-shopaholic/oc-request",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "oc-Request is vanilla js based replacement for standard OctoberCMS API. No dependencies. Based on native XMLHttpRequest.",
   "main": "src/oc-request.js",
   "scripts": {
