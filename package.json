@@ -15,19 +15,15 @@
   },
   "keywords": [
     "OctoberCMS",
-    "axios",
     "shopaholic",
-    "vanilla",
+    "vanilla js",
     "october",
-    "axios"
+    "XMLHttpRequest"
   ],
   "author": "Uladzimir Ambrazhei",
   "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/oc-shopaholic/oc-request/issues"
   },
-  "homepage": "https://github.com/oc-shopaholic/oc-request#readme",
-  "dependencies": {
-    "axios": "^0.18.0"
-  }
+  "homepage": "https://github.com/oc-shopaholic/oc-request#readme"
 }

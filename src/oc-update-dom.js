@@ -32,7 +32,7 @@ export default class OCUpdateDOM {
 
   replace(partial, selector) {
     [...document.querySelectorAll(selector)].forEach((el) => {
-      const html = this.response.data[partial];
+      const html = this.response[partial];
       const node = el;
 
       node.innerHTML = html;
@@ -41,7 +41,7 @@ export default class OCUpdateDOM {
 
   smartInsert(where, partial, selector) {
     [...document.querySelectorAll(selector.substring(1))].forEach((el) => {
-      const html = this.response.data[partial];
+      const html = this.response[partial];
 
       el.insertAdjacentHTML(where, html);
     });
@@ -51,7 +51,6 @@ export default class OCUpdateDOM {
     const preLoader = document.querySelector(preLoaderSelector);
 
     if (!preLoader) return;
-
     preLoader.style.display = 'block';
   }
 

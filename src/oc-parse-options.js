@@ -20,9 +20,14 @@ export default class OCparseOptions {
   setRequestHeaders(handler, options) {
     const headers = {
       'X-Requested-With': 'XMLHttpRequest',
+      'Content-Type': 'application/json',
       'X-OCTOBER-REQUEST-HANDLER': handler,
       'X-OCTOBER-REQUEST-PARTIALS': this.extractPartials(options.update),
     };
+
+    if (options.files === true) {
+      headers['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+    }
 
     if (options.useFlash) {
       headers['X-OCTOBER-REQUEST-FLASH'] = 1;
@@ -41,18 +46,9 @@ export default class OCparseOptions {
     return sPartial;
   }
 
-  static getConfirm(options) {
-    if (options.confirm) {
-      return options.confirm();
-    }
-
-    return true;
-  }
-
-  setOptions(handler, options) {
+  setOptions(handler, options = {}) {
     const obOptions = {
       url: window.location.href,
-      confirm: this.constructor.getConfirm(options),
       redirect: options.redirect || true,
       method: 'POST',
       withCredentials: true,
@@ -64,6 +60,7 @@ export default class OCparseOptions {
       error: options.error,
       update: options.update,
       loading: options.loading,
+      files: options.files,
     };
 
     return obOptions;
