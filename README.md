@@ -1,8 +1,8 @@
-<img width="130" height="60" src="logo.png" alt="logo">  
+# oc-Request
 
+oc-Request is vanilla js based replacement for standard OctoberCMS API. No dependencies. Based on native XMLHttpRequest.
 
-**OC-request** is vanilla-js based replacement   for standard OctoberCMS api.
-No dependencies. Based on native XMLHttpRequest.
+[![Build Status](https://travis-ci.org/oc-shopaholic/oc-request.svg?branch=master)](https://travis-ci.org/oc-shopaholic/oc-request) ![GitHub release](https://img.shields.io/github/release/oc-shopaholic/oc-request.svg?style=flat-square) ![npm (scoped)](https://img.shields.io/npm/v/@undercoatcss/framework)
 
 ## Contents
 
@@ -85,11 +85,17 @@ The set of options is standard for both and very similar to standard OctoberCMS 
 2. You may to use [axios](https://github.com/axios/axios) or [fetch](https://developer.mozilla.org/ru/docs/Web/API/Fetch_API) for request to custom request to server.
 3. This package is designed for the latest browsers. For better compatibility don't forget to add it for Babel processing.
 
-## Version history
 
-* ***0.1.3*** - Added basic functionality for sending data and updating DOM
-* ***0.2.0*** - Migrate from axios to native XMLHttpRequest
-* ***0.2.3*** - Add methods for manual files sending
-* ***0.3.0*** - Add methods for form serialize and send
-* ***0.9.0*** - Add documentation
-* ***1.0.0*** - Release
+## Get involved
+
+If you're interested in the improvement of this project you can help in the following ways:
+* bug reporting and new feature requesting by creating issues on plugin [GitHub page](https://github.com/oc-shopaholic/oc-request/issues);
+* contribution to a project following these [instructions](https://github.com/oc-shopaholic/oc-request/blob/master/CONTRIBUTING.md).
+
+Let us know if you have any other questions, ideas or suggestions! Just drop a line at shopaholic@lovata.com.
+
+## License
+
+© 2019, [LOVATA Group, LLC](https://github.com/lovata) under [GNU GPL v3](https://opensource.org/licenses/GPL-3.0).
+
+Developed by [Uladzimir Ambrazhei](https://github.com/ambrazhei).
