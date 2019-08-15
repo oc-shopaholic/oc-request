@@ -1,0 +1,36 @@
+language: node_js
+node_js: '9'
+jobs:
+  include:
+  - stage: GitHub release
+    node_js: '9'
+    script:
+    - echo "Deploying to GitHub…"
+    - PROJECT_NAME="oc-request"
+    - BUILD_FILE="$PROJECT_NAME.zip"
+    - zip -r $BUILD_FILE ./ -x .git/\* -x .gitignore -x .travis.yml
+    - GIT_TAG=$(git describe --tags)
+    - RELEASE_VERSION=${GIT_TAG//[^[:digit:].]/}
+    - if [[ -e $BUILD_FILE ]]; then BUILD_FILE_VERSIONED="$PROJECT_NAME-$RELEASE_VERSION";
+      mv $BUILD_FILE $BUILD_FILE_VERSIONED.zip; fi
+    deploy:
+      provider: releases
+      api_key:
+        secure: hUBOyzUXm+9ROsQhw6ccpbELJfGvpUr8T2Kien/0p100guJQ9dn7LFdhkAhjcm6JdAhQdcDTUX0+xxjxpQ/8J1u43ldDgvLS9JwxeHwTlc2chGLBS9iw6z8H3Y1/hMZRwOzLPRBVjGz69RvzSYayQg00y66vmu4rgpTWN8vcjRZJ2yjJoW51XCIWCvrIQ2hP8zkHnj8jPXvm6uBeI0NQx9JZamszGR1Ahs8XLEyMWcqWOlzCn9L/YPBz/ZYkQWzf6Jlyr53ebfeX6w40pM0xtx4mcK07OnCHxkyCoJ4zegmgaJ+jE8B22uWcja0Z8zBUEnnQ8PT8Lnsw7i8mkWgsE/tTjQat/EI7jSJe0WwLFoDkZTTuLaVaagJDuDmLRgcE8tSLP6jOxh5ljXb5c7aZn1IYk+GJCB207TgOF+rMusRGa8gBSGM9U/ux8Y/uteLm4LyqE67dg5zrr96OykG1G4gT8o3Xu7e+T6F5Kpyjxkkw6O3ub3V3cDXKgCkr6Jd0/OBJcEuDZ8vjVTGBmWEt6diKqwuOCpW5cY0RypeesVrbwqoIeVPwu8p4QCCSamXpbcutkUcY6zn69CLZTy0JozWFlDBhyNfG6w8hU0AcRj7dcj6FyLd8h6oLDe+CVjvvr3SYS95JuO6tibHOr7KvV0FuyBvkrhvTWutoiXmkymg=
+      file: "$BUILD_FILE_VERSIONED.zip"
+      skip_cleanup: true
+      on:
+        tags: true
+        repo: oc-shopaholic/oc-request
+  - stage: NPM release
+    node_js: '9'
+    script:
+    - echo "Deploying to NPM…"
+    deploy:
+      provider: npm
+      email: support@shopaholic.one
+      api_key:
+        secure: tjn1hd/XG3o0epYckYLc8uDvEN2W3kTQyicZXQGA8Kr56CAmBTVJKk6dxyMmIRDX23KQsk90QulZAOoa1wxzwi15MXfwtCnuJgdMDksWM05x4LlgsLuTLcwELct0EXs/aOasEiHCwBfWXzGNokqN+Q9FI3snbS6DRyvXNtODJt2dPkaFNT/hxDDrjkrD6WCMgVxwfo+ERnxYYa+MF/dn4Gq8AnMMQI2v48Ucum1/jufOQBP7A68nBs+CZCi4kZAXK9YwuFqiGX9Xc2VqPPxZSvrFGL/B0dOUxnRo/Fk1Rw0ad001qmidZRHLbAvfyRGeO+DLbM25g+Zd1aA0xxYDPXeyPvy3AXu/k+Zo7IRAFS0teF1ksab266/yoSqFx9Qe97Ve2EfJjpJNe2q69muXN2KFYuEfsGJRkULnQT3hhp43kgWIfQ4M0NF9yJ2UbCVJD7DHLnswkbrfUAYuFf2koUvHLaYST2/T7n27eg+sFPN9B1o1BcVZJIoaU+NYirlmhCI6u46SDLl6f+Kw8lpSsyVqEw40ftn7DQoMcPQ0/NEF6nWpjD5FGe4PPNKkob93gxg5NdPxfK+kHUsqKS+NxV34ECrdAyf/VNESHKeAV8cQ6nXVrqpD2QrEoMWwusGO6NVLq7E8VZjimVeNiJ43rO0TOHgX7jI+zJXUcO3txkk=
+      on:
+        tags: true
+        repo: oc-shopaholic/oc-request
