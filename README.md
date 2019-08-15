@@ -41,11 +41,11 @@ request.sendData('ProductList::onAjaxRequest', {
     data: {
       сategory_id: id,
     },
-      update: { 'product/slider/slider-ajax': '.slider-ajax-wrapper' },
-      success: () => {
+    update: { 'product/slider/slider-ajax': '.slider-ajax-wrapper' },
+    success: () => {
       doSomething();
     },
-      complete: () => {
+    complete: () => {
       doSomethingAfterSuccess();
     },
     loading: '.preloader-selector',
