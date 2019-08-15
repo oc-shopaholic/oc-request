@@ -19,7 +19,7 @@
     "axios"
   ],
   "author": "Uladzimir Ambrazhei",
-  "license": "MIT",
+  "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/ambrazhei/oc-request/issues"
   },
