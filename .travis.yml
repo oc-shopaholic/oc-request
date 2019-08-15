@@ -2,7 +2,11 @@ language: node_js
 node_js: '9'
 jobs:
   include:
+  - stage: Empty build
+    script:
+    - echo 'No unit tests at the moment. Sorry!'
   - stage: GitHub release
+      if: tag IS present
     node_js: '9'
     script:
     - echo "Deploying to GitHub…"
@@ -23,6 +27,7 @@ jobs:
         tags: true
         repo: oc-shopaholic/oc-request
   - stage: NPM release
+      if: tag IS present
     node_js: '9'
     script:
     - echo "Deploying to NPM…"
