@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ambrazhei/oc-request.git"
+    "url": "git+https://github.com/oc-shopaholic/oc-request.git"
   },
   "keywords": [
     "OctoberCMS",
@@ -24,9 +24,9 @@
   "author": "Uladzimir Ambrazhei",
   "license": "GPL-3.0-or-later",
   "bugs": {
-    "url": "https://github.com/ambrazhei/oc-request/issues"
+    "url": "https://github.com/oc-shopaholic/oc-request/issues"
   },
-  "homepage": "https://github.com/ambrazhei/oc-request#readme",
+  "homepage": "https://github.com/oc-shopaholic/oc-request#readme",
   "dependencies": {
     "axios": "^0.18.0"
   }
