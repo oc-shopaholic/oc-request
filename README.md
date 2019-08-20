@@ -34,30 +34,33 @@ npm install oc-request --save
 ### Usage exmaple:
 
 ```javascript
-import request from 'oc-request';
+import Request from 'oc-request';
 
 // Send some information
-request.sendData('ProductList::onAjaxRequest', {
-    data: {
-      сategory_id: id,
-    },
-    update: { 'product/slider/slider-ajax': '.slider-ajax-wrapper' },
-    success: () => {
-      doSomething();
-    },
-    complete: () => {
-      doSomethingAfterSuccess();
-    },
-    loading: '.preloader-selector',
+const dataRequest = new Request();
+
+dataRequest.sendData('ProductList::onAjaxRequest', {
+  data: {
+    category_id: id,
+  },
+  update: { 'product/slider/slider-ajax': '.slider-ajax-wrapper' },
+  success: () => {
+    doSomething();
+  },
+  complete: () => {
+    doSomethingAfterSuccess();
+  },
+  loading: '.preloader-selector',
 });
 
 // Send form
 const formNode = document.querySelector('.my-form');
+const formRequest = new Request();
 
-request.sendForm(form, 'MakeReview::onCreate', {
-   success: (res) => {
-      completeHandler(res);
-   },
+formRequest.sendForm(form, 'MakeReview::onCreate', {
+  success: (res) => {
+    completeHandler(res);
+  },
 });
 ```
 ## Methods
