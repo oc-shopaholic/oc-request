@@ -7,7 +7,7 @@ import OCMessage from './oc-request-message';
 import OCUpdateDOM from './oc-update-dom';
 import { handleResponse, errorFunc, completeFunc } from './oc-handle-response';
 
-export default new class OCRequest {
+export default class OCRequest {
   constructor() {
     this.obResponseStore = undefined;
     this.obOptions = {};
@@ -148,4 +148,4 @@ export default new class OCRequest {
 
     return xhr;
   }
-}();
+}
